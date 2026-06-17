@@ -13,6 +13,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppNotificationsRouteImport } from './routes/_app/notifications'
 import { Route as AppGalleryRouteImport } from './routes/_app/gallery'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
@@ -36,6 +37,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppGalleryRoute = AppGalleryRouteImport.update({
   id: '/gallery',
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
   '/gallery': typeof AppGalleryRoute
+  '/notifications': typeof AppNotificationsRoute
   '/listings/add': typeof AppListingsAddRoute
   '/listings/': typeof AppListingsIndexRoute
 }
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
   '/gallery': typeof AppGalleryRoute
+  '/notifications': typeof AppNotificationsRoute
   '/listings/add': typeof AppListingsAddRoute
   '/listings': typeof AppListingsIndexRoute
 }
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/gallery': typeof AppGalleryRoute
+  '/_app/notifications': typeof AppNotificationsRoute
   '/_app/listings/add': typeof AppListingsAddRoute
   '/_app/listings/': typeof AppListingsIndexRoute
 }
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/dashboard'
     | '/gallery'
+    | '/notifications'
     | '/listings/add'
     | '/listings/'
   fileRoutesByTo: FileRoutesByTo
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/dashboard'
     | '/gallery'
+    | '/notifications'
     | '/listings/add'
     | '/listings'
   id:
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/_app/dashboard'
     | '/_app/gallery'
+    | '/_app/notifications'
     | '/_app/listings/add'
     | '/_app/listings/'
   fileRoutesById: FileRoutesById
@@ -155,6 +167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/notifications': {
+      id: '/_app/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/gallery': {
       id: '/_app/gallery'
       path: '/gallery'
@@ -189,6 +208,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppGalleryRoute: typeof AppGalleryRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
   AppListingsAddRoute: typeof AppListingsAddRoute
   AppListingsIndexRoute: typeof AppListingsIndexRoute
 }
@@ -196,6 +216,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppGalleryRoute: AppGalleryRoute,
+  AppNotificationsRoute: AppNotificationsRoute,
   AppListingsAddRoute: AppListingsAddRoute,
   AppListingsIndexRoute: AppListingsIndexRoute,
 }
