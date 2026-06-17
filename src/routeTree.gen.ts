@@ -15,6 +15,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
+import { Route as AppListingsAddRouteImport } from './routes/_app/listings/add'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -45,12 +46,18 @@ const AppListingsIndexRoute = AppListingsIndexRouteImport.update({
   path: '/listings/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppListingsAddRoute = AppListingsAddRouteImport.update({
+  id: '/listings/add',
+  path: '/listings/add',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/listings/add': typeof AppListingsAddRoute
   '/listings/': typeof AppListingsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -58,6 +65,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/dashboard': typeof AppDashboardRoute
+  '/listings/add': typeof AppListingsAddRoute
   '/listings': typeof AppListingsIndexRoute
 }
 export interface FileRoutesById {
@@ -67,13 +75,26 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/listings/add': typeof AppListingsAddRoute
   '/_app/listings/': typeof AppListingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/dashboard' | '/listings/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/dashboard'
+    | '/listings/add'
+    | '/listings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/dashboard' | '/listings'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/dashboard'
+    | '/listings/add'
+    | '/listings'
   id:
     | '__root__'
     | '/'
@@ -81,6 +102,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/_app/dashboard'
+    | '/_app/listings/add'
     | '/_app/listings/'
   fileRoutesById: FileRoutesById
 }
@@ -135,16 +157,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppListingsIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/listings/add': {
+      id: '/_app/listings/add'
+      path: '/listings/add'
+      fullPath: '/listings/add'
+      preLoaderRoute: typeof AppListingsAddRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppListingsAddRoute: typeof AppListingsAddRoute
   AppListingsIndexRoute: typeof AppListingsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppListingsAddRoute: AppListingsAddRoute,
   AppListingsIndexRoute: AppListingsIndexRoute,
 }
 
