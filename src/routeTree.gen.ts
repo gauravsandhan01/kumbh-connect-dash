@@ -13,6 +13,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppSettingsRouteImport } from './routes/_app/settings'
 import { Route as AppProfileRouteImport } from './routes/_app/profile'
 import { Route as AppNotificationsRouteImport } from './routes/_app/notifications'
 import { Route as AppGalleryRouteImport } from './routes/_app/gallery'
@@ -38,6 +39,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppProfileRoute = AppProfileRouteImport.update({
   id: '/profile',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof AppGalleryRoute
   '/notifications': typeof AppNotificationsRoute
   '/profile': typeof AppProfileRoute
+  '/settings': typeof AppSettingsRoute
   '/listings/add': typeof AppListingsAddRoute
   '/listings/': typeof AppListingsIndexRoute
 }
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof AppGalleryRoute
   '/notifications': typeof AppNotificationsRoute
   '/profile': typeof AppProfileRoute
+  '/settings': typeof AppSettingsRoute
   '/listings/add': typeof AppListingsAddRoute
   '/listings': typeof AppListingsIndexRoute
 }
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/_app/gallery': typeof AppGalleryRoute
   '/_app/notifications': typeof AppNotificationsRoute
   '/_app/profile': typeof AppProfileRoute
+  '/_app/settings': typeof AppSettingsRoute
   '/_app/listings/add': typeof AppListingsAddRoute
   '/_app/listings/': typeof AppListingsIndexRoute
 }
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/notifications'
     | '/profile'
+    | '/settings'
     | '/listings/add'
     | '/listings/'
   fileRoutesByTo: FileRoutesByTo
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/notifications'
     | '/profile'
+    | '/settings'
     | '/listings/add'
     | '/listings'
   id:
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/_app/gallery'
     | '/_app/notifications'
     | '/_app/profile'
+    | '/_app/settings'
     | '/_app/listings/add'
     | '/_app/listings/'
   fileRoutesById: FileRoutesById
@@ -178,6 +190,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/profile': {
       id: '/_app/profile'
@@ -229,6 +248,7 @@ interface AppRouteChildren {
   AppGalleryRoute: typeof AppGalleryRoute
   AppNotificationsRoute: typeof AppNotificationsRoute
   AppProfileRoute: typeof AppProfileRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppListingsAddRoute: typeof AppListingsAddRoute
   AppListingsIndexRoute: typeof AppListingsIndexRoute
 }
@@ -238,6 +258,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppGalleryRoute: AppGalleryRoute,
   AppNotificationsRoute: AppNotificationsRoute,
   AppProfileRoute: AppProfileRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppListingsAddRoute: AppListingsAddRoute,
   AppListingsIndexRoute: AppListingsIndexRoute,
 }
