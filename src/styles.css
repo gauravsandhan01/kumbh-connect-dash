@@ -62,39 +62,57 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.875rem;
+  /* Kumbh Mela Vendor Portal — Saffron / Sacred Blue / Temple Gold */
+  --background: oklch(0.992 0.008 85);          /* #FFFDF8 warm white */
+  --foreground: oklch(0.265 0.025 260);         /* #1F2937 dark navy */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.265 0.025 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.265 0.025 260);
+  --primary: oklch(0.72 0.18 55);               /* Saffron #FF8C00 */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.40 0.18 265);            /* Sacred Blue #1E40AF */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.965 0.014 75);
+  --muted-foreground: oklch(0.48 0.02 260);
+  --accent: oklch(0.85 0.16 90);                /* Temple Gold #FBBF24 */
+  --accent-foreground: oklch(0.265 0.025 260);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0.018 75);
+  --input: oklch(0.92 0.018 75);
+  --ring: oklch(0.72 0.18 55);
+  --chart-1: oklch(0.72 0.18 55);
+  --chart-2: oklch(0.40 0.18 265);
+  --chart-3: oklch(0.85 0.16 90);
+  --chart-4: oklch(0.62 0.15 145);
+  --chart-5: oklch(0.58 0.22 27);
+
+  --saffron: oklch(0.72 0.18 55);
+  --saffron-deep: oklch(0.62 0.20 45);
+  --sacred-blue: oklch(0.40 0.18 265);
+  --temple-gold: oklch(0.85 0.16 90);
+  --river-teal: oklch(0.62 0.10 200);
+
+  --gradient-hero: linear-gradient(120deg, oklch(0.72 0.18 55) 0%, oklch(0.85 0.16 85) 45%, oklch(0.40 0.18 265) 100%);
+  --gradient-saffron: linear-gradient(135deg, oklch(0.78 0.17 60), oklch(0.62 0.20 45));
+  --gradient-gold: linear-gradient(135deg, oklch(0.90 0.14 95), oklch(0.78 0.17 70));
+  --shadow-soft: 0 4px 20px -8px oklch(0.62 0.20 45 / 0.18);
+  --shadow-elevated: 0 18px 50px -20px oklch(0.40 0.18 265 / 0.28);
+  --shadow-card: 0 1px 2px oklch(0.265 0.025 260 / 0.04), 0 8px 24px -12px oklch(0.265 0.025 260 / 0.10);
+
+  --sidebar: oklch(0.99 0.012 80);
+  --sidebar-foreground: oklch(0.265 0.025 260);
+  --sidebar-primary: oklch(0.72 0.18 55);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.96 0.03 75);
+  --sidebar-accent-foreground: oklch(0.62 0.20 45);
+  --sidebar-border: oklch(0.92 0.018 75);
+  --sidebar-ring: oklch(0.72 0.18 55);
+
+  --font-display: "Fraunces", "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 .dark {
@@ -130,6 +148,66 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+@layer base {
+  html, body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility bg-gradient-hero {
+  background-image: var(--gradient-hero);
+}
+@utility bg-gradient-saffron {
+  background-image: var(--gradient-saffron);
+}
+@utility bg-gradient-gold {
+  background-image: var(--gradient-gold);
+}
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+@utility shadow-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+@utility text-saffron {
+  color: var(--saffron);
+}
+@utility text-sacred-blue {
+  color: var(--sacred-blue);
+}
+@utility text-temple-gold {
+  color: var(--temple-gold);
+}
+@utility bg-saffron {
+  background-color: var(--saffron);
+}
+@utility bg-sacred-blue {
+  background-color: var(--sacred-blue);
+}
+@utility bg-temple-gold {
+  background-color: var(--temple-gold);
+}
+
+/* Subtle Ganga wave decoration */
+@utility wave-pattern {
+  background-image:
+    radial-gradient(circle at 20% 0%, oklch(0.72 0.18 55 / 0.08), transparent 40%),
+    radial-gradient(circle at 80% 100%, oklch(0.40 0.18 265 / 0.08), transparent 40%);
 }
 
 @layer base {
