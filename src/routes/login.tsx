@@ -1,9 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { KumbhLogo } from "@/components/kumbh/logo";
 import { ShieldCheck } from "lucide-react";
+import { signIn } from "@/lib/auth";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -16,6 +18,23 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    const user = signIn(email, password);
+    if (!user) {
+      setError("Please enter your registered email and password.");
+      return;
+    }
+    if (user.role === "ADMIN") navigate({ to: "/admin/dashboard" });
+    else navigate({ to: "/dashboard" });
+  };
+
   return (
     <div className="grid min-h-screen bg-background lg:grid-cols-2">
       <aside className="relative hidden overflow-hidden bg-gradient-hero p-12 text-white lg:flex lg:flex-col lg:justify-between">
@@ -43,20 +62,26 @@ function LoginPage() {
           <h1 className="font-display text-3xl font-bold">Sign in to your portal</h1>
           <p className="mt-2 text-sm text-muted-foreground">Enter your registered mobile or email to continue.</p>
 
-          <form className="mt-8 space-y-5">
+          <div className="mt-4 rounded-xl border border-saffron/30 bg-saffron/5 p-3 text-xs text-foreground/80">
+            <p className="font-semibold text-saffron">Demo credentials</p>
+            <p>Admin · admin@kumbhmela.com / Admin@123</p>
+            <p>Vendor · any email + password</p>
+          </div>
+          <form className="mt-6 space-y-5" onSubmit={onSubmit}>
             <div className="space-y-2">
               <Label htmlFor="id">Mobile number or Email</Label>
-              <Input id="id" placeholder="+91 98XXXXXX21" className="h-11" />
+              <Input id="id" placeholder="admin@kumbhmela.com" className="h-11" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="pw">Password</Label>
                 <a href="#" className="text-xs font-medium text-saffron hover:underline">Forgot?</a>
               </div>
-              <Input id="pw" type="password" placeholder="••••••••" className="h-11" />
+              <Input id="pw" type="password" placeholder="••••••••" className="h-11" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <Button asChild className="h-11 w-full rounded-full bg-gradient-saffron text-base text-white shadow-soft hover:opacity-95">
-              <Link to="/dashboard">Sign in securely</Link>
+            {error && <p className="text-sm text-destructive">{error}</p>}
+            <Button type="submit" className="h-11 w-full rounded-full bg-gradient-saffron text-base text-white shadow-soft hover:opacity-95">
+              Sign in securely
             </Button>
             <div className="relative py-2 text-center text-xs text-muted-foreground">
               <span className="bg-background px-3">or continue with</span>
